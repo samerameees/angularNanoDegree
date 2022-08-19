@@ -27,8 +27,6 @@ http://localhost:4200/
 
 The app will automatically reload if you change any of the source files.
 
-## References
-
-1. [Bootstrap 4 Documentation](https://getbootstrap.com/docs/4.1/getting-started/introduction/). 
-2. [Angular Documentation](https://angular.io/docs). 
+#### Note:
+I uploaded the compleate version of the project in a zip file.
 
