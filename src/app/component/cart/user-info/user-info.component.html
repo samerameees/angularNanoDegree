@@ -1,54 +1,59 @@
 <div>
     <form class="form-group" [formGroup]="createForm" (ngSubmit)="onSubmit()">
-        <div>
-            <label>Full Name </label><br />
-            <input class="form-control" type="text" formControlName="firstName" placeholder="Enter First Name" required [ngClass]="{
-          'is-invalid': submitted && firstName?.touched && firstName?.errors
-        }" />
 
-            <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="firstName?.errors?.['required']">
-                    First Name is required.
-                </div>
-                <div *ngIf="firstName?.errors?.['minlength']">
-                    Name must be at least 4 characters long.
-                </div>
-
-                <div *ngIf="firstName?.errors?.['minlength']">
-                    Name must be at least 4 characters long.
-                </div>
+            <label for="fullNameIn" class="form-label">Full name</label><br/>
+            <input name="fullNameIn" type="text" required class="form-control" formControlName="firstName" minlength="4"
+                placeholder="(minimum 4 characters)" maxlength="32" id="fullNameIn" 
+                aria-describedby="fullNameHelp"  autocomplete="off">
+            <div id="fullNameHelp" class="form-text" *ngIf="firstName?.invalid && firstName?.dirty">
+                <p class="text-danger" *ngIf="firstName?.errors?.['required']">
+                    Full Name is required.
+                </p>
+                <p class="text-danger" *ngIf="firstName?.errors?.['minlength']">
+                    Full Name is too short.
+                </p><br/>
+                <p class="text-danger" *ngIf="firstName?.errors?.['maxlength']">
+                    Full Name is too long.
+                </p><br/>
             </div>
-        </div>
-        <br />
-        <div>
-            <label>Address </label><br />
-            <input class="form-control" type="text" formControlName="address" placeholder="Enter Address" [ngClass]="{
-          'is-invalid': submitted && address?.touched && address?.errors
-        }" />
-            <div *ngIf="address?.invalid && (address?.dirty || address?.touched)" class="alert alert-danger mt-2">
-                <div *ngIf="address?.errors?.['required']">Address is required.</div>
+       
+            <label for="addIn" class="form-label">Address</label>
+            <input name="addIn" type="text" required class="form-control" formControlName="address" minlength="6"
+                placeholder="(minimum 6 characters)" maxlength="64" id="addIn"
+                aria-describedby="addHelp"  autocomplete="off">
+            <div id="addHelp" class="form-text" *ngIf="address?.invalid && address?.dirty">
+                <p class="text-danger" *ngIf="address?.errors?.['required']">
+                    Address is required.
+                </p>
+                <p class="text-danger" *ngIf="address?.errors?.['minlength']">
+                    Address is too short.
+                </p>
+                <p class="text-danger" *ngIf="address?.errors?.['maxlength']">
+                    Address is too long.
+                </p>
             </div>
-        </div>
 
-        <br />
-        <div>
-            <label>Credit Card Number </label><br />
-            <input class="form-control" type="number" formControlName="creditCard" maxlength="16" placeholder="(16-digit number)" [ngClass]="{
-          'is-invalid': submitted && creditCard?.touched && creditCard?.errors
-        }" />
-
-            <div *ngIf="
-          creditCard?.invalid && (creditCard?.dirty || creditCard?.touched)
-        " class="alert alert-danger mt-2">
-                <div *ngIf="creditCard?.errors?.['required']">
-                    Credit Card is required or please enter number bellow.
+            <label for="creditIn" class="form-label">Credit Card</label>
+            <input name="creditIn" type="text" required class="form-control"formControlName="creditCard" minlength="16" pattern="[0-9]*"
+                placeholder="(16-digit-number)" maxlength="16" id="creditIn" 
+                aria-describedby="creditHelp"  autocomplete="off">
+            <div id="creditHelp" class="form-text">
+                <div *ngIf="creditCard?.invalid && creditCard?.dirty">
+                    <p class="text-danger" *ngIf="creditCard?.errors?.['required']">
+                        Credit Card is required.
+                    </p>
+                    <p class="text-danger"
+                        *ngIf="creditCard?.errors?.['minlength'] or creditIn.errors?.['maxlength']">
+                        Credit Card must contain 16-digit-number.
+                    </p>
+                    <p class="text-danger" *ngIf="creditCard?.errors?.['pattern']">
+                        Credit Card is invalid, must only contain numbers.
+                    </p>
                 </div>
-            </div>
-        </div>
+                We'll never share your email with anyone else.
+            </div><br/>
 
-        <br />
-        <span class="message">We'll never share your payment details with anyone else.
-    </span>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-success" [disabled]="createForm.invalid">Submit</button>
+
     </form>
 </div>
