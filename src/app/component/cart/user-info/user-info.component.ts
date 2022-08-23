@@ -20,9 +20,10 @@ export class UserInfoComponent implements OnInit {
     this.createForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(4)]],
       address: ['', [Validators.required]],
-      creditCard: ['', [Validators.required]],
+      creditCard: ['', [Validators.required, Validators.minLength(16)]],
     });
   }
+  
   onSubmit() {
     this.userInfo.emit(this.createForm.value);
   }
